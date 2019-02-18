@@ -19,7 +19,7 @@ class LoginWebpackPlugin {
       json: this.options.json,
     }, (err, response, body) => {
       if (err) {
-        colors.red.underline(err);
+        console.error(colors.red.underline(err));
       }
       this.obj = body.data;
       cb();
@@ -31,7 +31,7 @@ class LoginWebpackPlugin {
     });
     compiler.plugin('compilation', (compilation) => {
       compilation.plugin('html-webpack-plugin-after-html-processing', (data) => {
-        colors.green.bold(`\nlogin info:${JSON.stringify(this.obj)}\n`);
+        console.log(colors.green.bold(`\nlogin info:${JSON.stringify(this.obj)}\n`));
         data.html += `
           <script>
             const a = ${JSON.stringify(this.obj)};
