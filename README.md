@@ -31,6 +31,6 @@ module.exports = {
 
 | Name|Type|Default|Description|
 | ------------ | :-----------: | -----: | -----: |
-| url    | String | None |   path     |
+| url    | String | None |   api path     |
 | json   |  Object   | None |  sets body to JSON representation of value      |
 | localStorage |   String    | 'loginInfo' |  localStorage key      |
