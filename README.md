@@ -27,7 +27,7 @@ module.exports = {
   ]
 }
 ```
-<h2 algin="center">Options</h2> <br/>
+<h2 algin="center">Options</h2>
 
 | Name|Type|Default|Description|
 | ------------ | :-----------: | -----: | -----: |
