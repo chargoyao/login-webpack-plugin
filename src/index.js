@@ -31,7 +31,6 @@ class LoginWebpackPlugin {
     });
     compiler.plugin('compilation', (compilation) => {
       compilation.plugin('html-webpack-plugin-after-html-processing', (data) => {
-        console.log(colors.green.bold(`\nlogin info:${JSON.stringify(this.obj)}\n`));
         data.html += `
           <script>
             const a = ${JSON.stringify(this.obj)};
@@ -39,6 +38,9 @@ class LoginWebpackPlugin {
           </script>`
       })
     })
+    compiler.plugin('done', (compilation) => {
+      console.log(colors.green.bold(`\nlogin info:${JSON.stringify(this.obj)}\n`));
+    });
   }
 }
 module.exports = LoginWebpackPlugin;
