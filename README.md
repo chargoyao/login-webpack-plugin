@@ -5,13 +5,14 @@ This plugin fully depends on [html-webpack-Plugin](https://github.com/jantimon/h
 <h2>Description</h2>
 store remote data in localStorage.
 
-<h2>Install</h2>
+<h2 align="center">Install</h2>
 
 ```
   npm install --save-dev login-webpack-plugin
 ```
 
 <h2 align="center">Usage</h2>
+
 ```
 const LoginWebpackPlugin = require('login-webpack-plugin');
 module.exports = {
