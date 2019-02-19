@@ -12,8 +12,7 @@ store remote data in localStorage.
 ```
 
 <h2 align="center">Usage</h2>
-```js
-
+```
 const LoginWebpackPlugin = require('login-webpack-plugin');
 module.exports = {
   plugins: [
