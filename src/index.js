@@ -31,11 +31,14 @@ class LoginWebpackPlugin {
     });
     compiler.plugin('compilation', (compilation) => {
       compilation.plugin('html-webpack-plugin-after-html-processing', (data) => {
-        data.html += `
+        console.log(process.env.NODE_ENV)
+        if (process.env.NODE_ENV !== 'production') {
+          data.html += `
           <script>
             const a = ${JSON.stringify(this.obj)};
             window.localStorage.setItem(${JSON.stringify(this.options.localStorageKey)}, JSON.stringify(a)); 
           </script>`
+        }
       })
     })
     compiler.plugin('done', (compilation) => {
