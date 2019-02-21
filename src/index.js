@@ -31,7 +31,6 @@ class LoginWebpackPlugin {
     });
     compiler.plugin('compilation', (compilation) => {
       compilation.plugin('html-webpack-plugin-after-html-processing', (data) => {
-        console.log(process.env.NODE_ENV)
         if (process.env.NODE_ENV !== 'production') {
           data.html += `
           <script>
