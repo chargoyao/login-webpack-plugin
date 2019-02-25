@@ -1,12 +1,16 @@
 const request = require('request');
 const colors = require('colors');
 
+/**
+ * options {object} json: 请求接口的对象 url: 接口地址 localStorageKey: 键值默认为loginInfo storageObj: 额外的localStorage对象。
+ */
 class LoginWebpackPlugin {
   constructor(options) {
     this.options = options;
     if (this.options.localStorageKey === undefined) {
       this.options.localStorageKey = 'loginInfo';
     }
+    this.options.storageObj = options.storageObj || {};
     this.obj = {};
   }
   callLoginApi(cb) {
@@ -21,7 +25,7 @@ class LoginWebpackPlugin {
       if (err) {
         console.error(colors.red.underline(err));
       }
-      this.obj = body.data;
+      this.obj = { ...body.data, ...this.options.storageObj };
       cb();
     });
   }
