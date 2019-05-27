@@ -1,6 +1,6 @@
 {
   "name": "login-webpack-plugin",
-  "version": "0.1.7",
+  "version": "1.0.0",
   "description": "set login info into localStorage",
   "main": "src/index.js",
   "scripts": {

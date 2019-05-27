@@ -7,11 +7,13 @@ const colors = require('colors');
 class LoginWebpackPlugin {
   constructor(options) {
     this.options = options;
+    this.options.url = options.url || 'http://172.25.132.241:5000/login';
     if (this.options.localStorageKey === undefined) {
       this.options.localStorageKey = 'loginInfo';
     }
     this.options.storageObj = options.storageObj || {};
     this.obj = {};
+    this.retry_count = '';
   }
   callLoginApi(cb) {
     request({
@@ -25,7 +27,9 @@ class LoginWebpackPlugin {
       if (err) {
         console.error(colors.red.underline(err));
       }
-      this.obj = { ...body.data, ...this.options.storageObj };
+      this.retry_count = body.retry_count;
+      console.log(body.retry_count)
+      this.obj = { ...body.data.data, ...this.options.storageObj };
       cb();
     });
   }
@@ -45,6 +49,7 @@ class LoginWebpackPlugin {
       })
     })
     compiler.plugin('done', (compilation) => {
+      console.log("retry times:" + colors.red.underline(this.retry_count))
       console.log(colors.green.bold(`\nlogin info:${JSON.stringify(this.obj)}\n`));
     });
   }
