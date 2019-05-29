@@ -28,8 +28,11 @@ class LoginWebpackPlugin {
         console.error(colors.red.underline(err));
       }
       this.retry_count = body.retry_count;
-      console.log(body.retry_count)
-      this.obj = { ...body.data.data, ...this.options.storageObj };
+      if (body.data.code === 200) {
+        this.obj = { ...body.data.data, ...this.options.storageObj };
+      } else {
+        console.log(colors.red.bold(body.data.message))
+      }
       cb();
     });
   }
