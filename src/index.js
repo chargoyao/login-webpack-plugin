@@ -12,7 +12,9 @@ class LoginWebpackPlugin {
       this.options.localStorageKey = 'loginInfo';
     }
     this.options.storageObj = options.storageObj || {};
-    this.obj = {};
+    this.obj = {
+      token: null,
+    };
     this.retry_count = '';
   }
   callLoginApi(cb) {
@@ -38,7 +40,7 @@ class LoginWebpackPlugin {
   }
   apply(compiler) {
     compiler.plugin('before-compile', (compilation, cb) => {
-      this.callLoginApi(cb);
+      this.obj.token === null ? this.callLoginApi(cb) : cb()
     });
     compiler.plugin('compilation', (compilation) => {
       compilation.plugin('html-webpack-plugin-after-html-processing', (data) => {
