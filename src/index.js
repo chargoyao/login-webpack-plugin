@@ -39,10 +39,10 @@ class LoginWebpackPlugin {
     });
   }
   apply(compiler) {
-    compiler.plugin('before-compile', (compilation, cb) => {
+    compiler.hooks.beforeCompile.tapAsync('LoginWebpackPlugin', (compilation, cb) => {
       this.obj.token === null ? this.callLoginApi(cb) : cb()
     });
-    compiler.plugin('compilation', (compilation) => {
+    compiler.hooks.compilation.tap('LoginWebpackPlugin', (compilation, cb) => {
       compilation.plugin('html-webpack-plugin-after-html-processing', (data) => {
         if (process.env.NODE_ENV !== 'production') {
           data.html += `
@@ -51,11 +51,13 @@ class LoginWebpackPlugin {
             window.localStorage.setItem(${JSON.stringify(this.options.localStorageKey)}, JSON.stringify(a)); 
           </script>`
         }
-      })
-    })
-    compiler.plugin('done', (compilation) => {
+      });
+      cb();
+    });
+    compiler.hooks.done.tapAsync('LoginWebpackPlugin', (compilation, cb) => {
       console.log("retry times:" + colors.red.underline(this.retry_count))
       console.log(colors.green.bold(`\nlogin info:${JSON.stringify(this.obj)}\n`));
+      cb();
     });
   }
 }
