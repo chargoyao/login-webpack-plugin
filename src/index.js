@@ -42,7 +42,7 @@ class LoginWebpackPlugin {
     compiler.hooks.beforeCompile.tapAsync('LoginWebpackPlugin', (compilation, cb) => {
       this.obj.token === null ? this.callLoginApi(cb) : cb()
     });
-    compiler.hooks.compilation.tap('LoginWebpackPlugin', (compilation, cb) => {
+    compiler.hooks.compilation.tap('LoginWebpackPlugin', (compilation) => {
       compilation.plugin('html-webpack-plugin-after-html-processing', (data) => {
         if (process.env.NODE_ENV !== 'production') {
           data.html += `
@@ -52,7 +52,6 @@ class LoginWebpackPlugin {
           </script>`
         }
       });
-      cb();
     });
     compiler.hooks.done.tapAsync('LoginWebpackPlugin', (compilation, cb) => {
       console.log("retry times:" + colors.red.underline(this.retry_count))
